@@ -1,10 +1,11 @@
 api:
   dashboard: true
-  insecure: true
 
 providers:
   docker:
     exposedbydefault: false
+  file:
+    filename: /etc/traefik/dynamic.yml
 
 ping: {}
 
@@ -23,7 +24,6 @@ entryPoints:
         entryPoint:
           to: websecure
           scheme: https
-
   websecure:
     address: ":443"
 
@@ -33,5 +33,4 @@ certificatesResolvers:
       email: "amhoba2014@gmail.com"
       storage: "/etc/traefik/acme/acme.json"
       httpChallenge:
-        # used during the challenge
         entryPoint: web

@@ -1,0 +1,26 @@
+# dynamic.yml
+http:
+  routers:
+    api:
+      rule: "Host(`traefik.localhost`)"
+      service: "api@internal"
+      
+    app1:
+      rule: "Host(`app1.localhost`)"
+      service: "app1-service"
+      entryPoints:
+        - "web"
+        - "websecure"
+      tls:
+        certResolver: "letsencrypt"
+
+  services:
+    app1-service:
+      loadBalancer:
+        servers:
+          - url: "http://localhost:8080"
+
+tls:
+  certificates:
+    - certFile: /path/to/cert.pem
+      keyFile: /path/to/key.pem
