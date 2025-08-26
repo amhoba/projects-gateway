@@ -1,33 +1,53 @@
 # dynamic.yml
 http:
   routers:
-    clipfinity-router:
+    bitpulse-online-router:
       rule: "Host(`bitpulse.online`)"
-      service: "clipfinity-service"
+      service: "bitpulse-online-service"
       entryPoints:
         - "web"
         - "websecure"
       tls:
         certResolver: "myresolver"
 
-    # Redirect HTTP to HTTPS
-    clipfinity-redirect:
+    clipfinity-space-router:
+      rule: "Host(`clipfinity.space`)"
+      service: "clipfinity-space-service"
+      entryPoints:
+        - "web"
+        - "websecure"
+      tls:
+        certResolver: "myresolver"
+
+    bitpulse-online-redirect:
       rule: "Host(`bitpulse.online`)"
       entryPoints:
         - "web"
       middlewares:
         - "redirect-to-https"
-      service: "clipfinity-service"
+      service: "bitpulse-online-service"
+
+    clipfinity-space-redirect:
+      rule: "Host(`clipfinity.space`)"
+      entryPoints:
+        - "web"
+      middlewares:
+        - "redirect-to-https"
+      service: "clipfinity-space-service"
 
   services:
-    clipfinity-service:
+    bitpulse-online-service:
       loadBalancer:
         servers:
           - url: "http://78.157.214.115:8000"
+
+    clipfinity-space-service:
+      loadBalancer:
+        servers:
+          - url: "http://78.157.214.115:8001"
 
   middlewares:
     redirect-to-https:
       redirectScheme:
         scheme: https
         permanent: true
-
