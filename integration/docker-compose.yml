@@ -12,3 +12,6 @@ services:
     build:
       context: ../gateway
       target: base
+
+volumes:
+  traefik_acme_storage:
