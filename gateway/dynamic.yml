@@ -1,26 +1,33 @@
 # dynamic.yml
 http:
   routers:
-    api:
-      rule: "Host(`traefik.localhost`)"
-      service: "api@internal"
-      
-    app1:
-      rule: "Host(`app1.localhost`)"
-      service: "app1-service"
+    clipfinity-router:
+      rule: "Host(`clipfinity.space`)"
+      service: "clipfinity-service"
       entryPoints:
         - "web"
         - "websecure"
       tls:
-        certResolver: "letsencrypt"
+        certResolver: "myresolver"
+
+    # Redirect HTTP to HTTPS
+    clipfinity-redirect:
+      rule: "Host(`clipfinity.space`)"
+      entryPoints:
+        - "web"
+      middlewares:
+        - "redirect-to-https"
+      service: "clipfinity-service"
 
   services:
-    app1-service:
+    clipfinity-service:
       loadBalancer:
         servers:
-          - url: "http://localhost:8080"
+          - url: "http://34.34.34.34:8000"
 
-tls:
-  certificates:
-    - certFile: /path/to/cert.pem
-      keyFile: /path/to/key.pem
+  middlewares:
+    redirect-to-https:
+      redirectScheme:
+        scheme: https
+        permanent: true
+
