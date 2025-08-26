@@ -2,7 +2,7 @@
 http:
   routers:
     clipfinity-router:
-      rule: "Host(`clipfinity.space`)"
+      rule: "Host(`bitpulse.online`)"
       service: "clipfinity-service"
       entryPoints:
         - "web"
@@ -12,7 +12,7 @@ http:
 
     # Redirect HTTP to HTTPS
     clipfinity-redirect:
-      rule: "Host(`clipfinity.space`)"
+      rule: "Host(`bitpulse.online`)"
       entryPoints:
         - "web"
       middlewares:
