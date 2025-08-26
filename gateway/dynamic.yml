@@ -23,7 +23,7 @@ http:
     clipfinity-service:
       loadBalancer:
         servers:
-          - url: "http://34.34.34.34:8000"
+          - url: "http://78.157.214.115:8000"
 
   middlewares:
     redirect-to-https:
