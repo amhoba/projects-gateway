@@ -19,6 +19,15 @@ http:
       tls:
         certResolver: "myresolver"
 
+    agent8-one-router:
+      rule: "Host(`agent8.one`)"
+      service: "agent8-one-service"
+      entryPoints:
+        - "web"
+        - "websecure"
+      tls:
+        certResolver: "myresolver"
+
     bitpulse-online-redirect:
       rule: "Host(`bitpulse.online`)"
       entryPoints:
@@ -35,6 +44,14 @@ http:
         - "redirect-to-https"
       service: "clipfinity-space-service"
 
+    agent8-one-redirect:
+      rule: "Host(`agent8.one`)"
+      entryPoints:
+        - "web"
+      middlewares:
+        - "redirect-to-https"
+      service: "agent8-one-service"
+
   services:
     bitpulse-online-service:
       loadBalancer:
@@ -45,6 +62,11 @@ http:
       loadBalancer:
         servers:
           - url: "http://78.157.214.115:8001"
+
+    agent8-one-service:
+      loadBalancer:
+        servers:
+          - url: "http://78.157.214.115:8002"
 
   middlewares:
     redirect-to-https:
